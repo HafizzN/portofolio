@@ -32,12 +32,12 @@ export const profile: Profile = {
   location: "Padang, Sumatera Barat",
   phone: "+62 821-7173-0304",
   email: "Hafizulhanifr@gmail.com",
-  linkedin: "LinkedIn",
-  github: "GitHub",
-  portfolio: "Portofolio",
+  linkedin: "https://www.linkedin.com/in/hafizul-hanif-0a51b1289/",
+  github: "https://github.com/HafizzN",
+  portfolio: "https://github.com/HafizzN",
   about: {
-    en: "International Digital Business student at Universitas Negeri Padang with a track record of national and international business simulation championship achievements. Possesses technical skills as a Laravel Developer with experience building ERP systems, e-commerce platforms, and tourism websites that have been hosted live. Experienced in data-driven strategic decision-making, business analysis, and cross-functional team leadership.",
-    id: "Mahasiswa Bisnis Digital Internasional di Universitas Negeri Padang dengan rekam jejak prestasi kompetisi simulasi bisnis tingkat nasional dan internasional. Memiliki kemampuan teknis sebagai Laravel Developer dengan pengalaman membangun sistem ERP, platform e-commerce, dan website pariwisata yang telah di-hosting secara live. Berpengalaman dalam pengambilan keputusan strategis berbasis data, analisis bisnis, dan kepemimpinan tim lintas fungsi.",
+    en: "I am an International Digital Business student passionate about transforming business challenges into digital solutions. My experience spans software development, business strategy, and competitive business simulations, where I have earned multiple national and international championships. I enjoy bridging technology and business by developing scalable applications, analyzing data-driven decisions, and creating products that improve operational efficiency.\n\nBeyond coding, I am passionate about product strategy, entrepreneurship, and building impactful digital solutions that create long-term value for businesses.",
+    id: "Saya adalah mahasiswa Bisnis Digital Internasional yang berdedikasi tinggi dalam mengubah tantangan bisnis menjadi solusi digital praktis. Pengalaman saya mencakup pengembangan perangkat lunak, strategi bisnis, dan kompetisi simulasi bisnis, di mana saya berhasil memenangkan berbagai kejuaraan tingkat nasional dan internasional. Saya senang menjembatani kesenjangan antara teknologi dan bisnis dengan mengembangkan aplikasi yang skalabel, menganalisis keputusan berbasis data, dan menciptakan produk digital guna meningkatkan efisiensi operasional.\n\nDi luar pemrograman, saya memiliki ketertarikan mendalam pada strategi produk, kewirausahaan, serta pembangunan solusi digital berdampak tinggi yang menciptakan nilai jangka panjang bagi dunia bisnis.",
   },
   gpa: "3.68 / 4.00",
 };
@@ -466,78 +466,153 @@ export const certifications: Certification[] = [
 // ------------------------------------------------------------
 //  SKILLS
 // ------------------------------------------------------------
+export interface SkillItem {
+  name: { en: string; id: string } | string;
+  badge?: { en: string; id: string } | string;
+  description?: { en: string; id: string };
+}
+
 export interface SkillGroup {
-  category: string;
+  category: { en: string; id: string };
   icon: string;
-  skills: { name: string; level: number }[];
+  skills: SkillItem[];
 }
 
 export const skillGroups: SkillGroup[] = [
   {
-    category: "Programming",
+    category: {
+      en: "Software Engineering",
+      id: "Rekayasa Perangkat Lunak",
+    },
     icon: "code",
     skills: [
-      { name: "Laravel", level: 92 },
-      { name: "PHP", level: 90 },
-      { name: "MySQL", level: 88 },
-      { name: "JavaScript", level: 80 },
-      { name: "HTML & CSS", level: 90 },
-      { name: "Blade Template", level: 88 },
+      { name: "Laravel", badge: { en: "Advanced", id: "Mahir" } },
+      { name: "PHP", badge: { en: "Advanced", id: "Mahir" } },
+      { name: "MySQL", badge: { en: "Advanced", id: "Mahir" } },
+      { name: "JavaScript", badge: { en: "Intermediate", id: "Menengah" } },
+      { name: "TypeScript", badge: { en: "Intermediate", id: "Menengah" } },
+      { name: "HTML & CSS", badge: { en: "Advanced", id: "Mahir" } },
+      { name: "Flutter", badge: { en: "Intermediate", id: "Menengah" } },
+      { name: "Git", badge: { en: "Advanced", id: "Mahir" } },
+      { name: "GitHub", badge: { en: "Advanced", id: "Mahir" } },
+      { name: "REST API", badge: { en: "Advanced", id: "Mahir" } },
+      { name: "Postman", badge: { en: "Advanced", id: "Mahir" } },
     ],
   },
   {
-    category: "Deployment & Version Control",
-    icon: "rocket",
-    skills: [
-      { name: "Git", level: 88 },
-      { name: "GitHub", level: 90 },
-      { name: "Laravel Cloud", level: 85 },
-      { name: "Netlify", level: 78 },
-      { name: "WordPress", level: 75 },
-    ],
-  },
-  {
-    category: "Design & Productivity",
-    icon: "palette",
-    skills: [
-      { name: "Figma", level: 82 },
-      { name: "Canva", level: 90 },
-      { name: "Microsoft Office", level: 92 },
-      { name: "Google Workspace", level: 90 },
-    ],
-  },
-  {
-    category: "Business & Analysis",
+    category: {
+      en: "Business & Analytics",
+      id: "Bisnis & Analitik",
+    },
     icon: "chart",
     skills: [
-      { name: "ERP", level: 88 },
-      { name: "KPI Analysis", level: 90 },
-      { name: "Business Process Analysis", level: 88 },
-      { name: "Production Management", level: 85 },
-      { name: "HRM", level: 82 },
-      { name: "Digital Marketing", level: 80 },
+      { name: { en: "Business Process Analysis", id: "Analisis Proses Bisnis" } },
+      { name: { en: "KPI & Performance Analysis", id: "Analisis KPI & Kinerja" } },
+      { name: { en: "ERP Systems", id: "Sistem ERP" } },
+      { name: { en: "Market Research", id: "Riset Pasar" } },
+      { name: { en: "Strategic Planning", id: "Perencanaan Strategis" } },
+      { name: { en: "Digital Marketing", id: "Pemasaran Digital" } },
+      { name: { en: "Data Analysis", id: "Analisis Data" } },
     ],
   },
   {
-    category: "Business Simulation",
-    icon: "trophy",
+    category: {
+      en: "Product Development",
+      id: "Pengembangan Produk",
+    },
+    icon: "rocket",
     skills: [
-      { name: "MonsoonSIM", level: 98 },
-      { name: "Retail Strategy", level: 95 },
-      { name: "Production Strategy", level: 92 },
-      { name: "Financial Strategy", level: 90 },
+      { name: "UI/UX Design" },
+      { name: "Figma" },
+      { name: "Canva" },
+      { name: { en: "Product Thinking", id: "Product Thinking" } },
+      { name: { en: "System Design", id: "Desain Sistem" } },
+      { name: { en: "Agile Workflow", id: "Alur Kerja Agile" } },
+      { name: { en: "Responsive Design", id: "Desain Responsif" } },
+      { name: { en: "Wireframing & Prototyping", id: "Wireframing & Prototipe" } },
     ],
   },
   {
-    category: "Soft Skills",
+    category: {
+      en: "AI & Automation",
+      id: "AI & Otomasi",
+    },
     icon: "sparkles",
     skills: [
-      { name: "Leadership", level: 92 },
-      { name: "Strategic Thinking", level: 90 },
-      { name: "Problem Solving", level: 88 },
-      { name: "Communication", level: 87 },
-      { name: "Teamwork", level: 92 },
-      { name: "Adaptability", level: 90 },
+      { name: "ChatGPT" },
+      { name: "Google Gemini" },
+      { name: "AI Prompt Engineering" },
+      { name: { en: "AI Content Strategy", id: "Strategi Konten AI" } },
+      { name: { en: "Workflow Automation", id: "Otomasi Alur Kerja" } },
+    ],
+  },
+  {
+    category: {
+      en: "Competitive Excellence",
+      id: "Keunggulan Kompetitif",
+    },
+    icon: "trophy",
+    skills: [
+      {
+        name: "MonsoonSIM",
+        badge: {
+          en: "🏆 10× National & International Champion",
+          id: "🏆 10× Juara Nasional & Internasional",
+        },
+      },
+      {
+        name: { en: "Retail Strategy", id: "Strategi Ritel" },
+        badge: { en: "🏆 Champion", id: "🏆 Juara 1" },
+      },
+      {
+        name: { en: "Human Capital", id: "Modal Manusia" },
+        badge: { en: "🏆 Champion", id: "🏆 Juara 1" },
+      },
+      {
+        name: { en: "Production Management", id: "Manajemen Produksi" },
+        badge: { en: "🏆 Champion", id: "🏆 Juara 1" },
+      },
+      {
+        name: { en: "Financial Decision Making", id: "Keputusan Keuangan" },
+        badge: { en: "🏆 Champion", id: "🏆 Juara 1" },
+      },
+      {
+        name: { en: "Business Presentation", id: "Presentasi Bisnis" },
+        badge: { en: "🏆 Champion", id: "🏆 Juara 1" },
+      },
+    ],
+  },
+  {
+    category: {
+      en: "Professional Skills",
+      id: "Kemampuan Profesional",
+    },
+    icon: "users",
+    skills: [
+      {
+        name: { en: "Leadership", id: "Kepemimpinan" },
+        description: {
+          en: "Led multidisciplinary teams during business simulation competitions.",
+          id: "Memimpin tim multidisiplin selama kompetisi simulasi bisnis.",
+        },
+      },
+      {
+        name: { en: "Problem Solving", id: "Pemecahan Masalah" },
+        description: {
+          en: "Built ERP and HRIS systems from scratch.",
+          id: "Membangun sistem ERP dan HRIS dari awal.",
+        },
+      },
+      {
+        name: { en: "Communication", id: "Komunikasi" },
+        description: {
+          en: "Presented business strategies in international competitions.",
+          id: "Mempresentasikan strategi bisnis dalam kompetisi internasional.",
+        },
+      },
+      { name: { en: "Strategic Thinking", id: "Berpikir Strategis" } },
+      { name: { en: "Collaboration", id: "Kolaborasi" } },
+      { name: { en: "Adaptability", id: "Adaptabilitas" } },
     ],
   },
 ];

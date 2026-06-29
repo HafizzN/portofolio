@@ -144,7 +144,7 @@ export default function ExperienceSection() {
           eyebrow={t.experience.eyebrow}
           title={
             <>
-              {t.experience.title1} <span className="text-gradient-accent">{t.experience.title2}</span>
+              {t.experience.title1} <span className="text-amber-500 dark:text-amber-400">{t.experience.title2}</span>
             </>
           }
           subtitle={t.experience.subtitle}
@@ -161,9 +161,9 @@ export default function ExperienceSection() {
             >
               <div
                 className="neo-inset-sm w-11 h-11 rounded-2xl flex items-center justify-center"
-                style={{ boxShadow: "0 0 16px var(--neo-glow)" }}
+                style={{ boxShadow: "0 0 16px rgba(245, 158, 11, 0.4)" }}
               >
-                <Briefcase className="w-5 h-5 text-accent-c" />
+                <Briefcase className="w-5 h-5 text-amber-500 dark:text-amber-400" />
               </div>
               <div>
                 <h3 className="font-bold text-base">{t.experience.internship}</h3>

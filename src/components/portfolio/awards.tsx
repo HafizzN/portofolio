@@ -206,7 +206,7 @@ export default function Awards() {
           eyebrow={t.awards.eyebrow}
           title={
             <>
-              {t.awards.title1} <span className="text-gradient-accent">{t.awards.title2}</span>
+              {t.awards.title1} <span className="text-purple-600 dark:text-purple-400">{t.awards.title2}</span>
             </>
           }
           subtitle={t.awards.subtitle}
@@ -226,7 +226,7 @@ export default function Awards() {
               whileTap={{ scale: 0.95 }}
               className={`px-4 py-2 rounded-full text-xs font-bold tracking-wider uppercase transition-all ${
                 filter === f.key
-                  ? "neo neo-glow text-accent-c"
+                  ? "neo neo-glow text-purple-600 dark:text-purple-400"
                   : "neo-inset-sm text-muted-c hover:text-foreground"
               }`}
             >

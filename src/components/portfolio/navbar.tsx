@@ -84,32 +84,54 @@ export default function Navbar({
 
           {/* Desktop nav */}
           <div className="hidden md:flex items-center gap-1">
-            {NAV_ITEMS.map((item) => (
-              <motion.button
-                key={item.id}
-                onClick={() => scrollTo(item.id)}
-                className="relative px-3 py-2 text-sm font-medium transition-colors"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <span
-                  className={
-                    active === item.id
-                      ? "text-accent-c"
-                      : "hover:text-accent-c transition-colors"
-                  }
+            {NAV_ITEMS.map((item) => {
+              const activeColor = {
+                hero: "text-blue-600 dark:text-blue-400",
+                about: "text-indigo-600 dark:text-indigo-400",
+                awards: "text-purple-600 dark:text-purple-400",
+                projects: "text-rose-600 dark:text-rose-400",
+                experience: "text-amber-500 dark:text-amber-400",
+                skills: "text-emerald-600 dark:text-emerald-400",
+                contact: "text-cyan-600 dark:text-cyan-400",
+              }[item.id] || "text-accent-c";
+
+              const hoverColor = {
+                hero: "hover:text-blue-600 dark:hover:text-blue-400",
+                about: "hover:text-indigo-600 dark:hover:text-indigo-400",
+                awards: "hover:text-purple-600 dark:hover:text-purple-400",
+                projects: "hover:text-rose-600 dark:hover:text-rose-400",
+                experience: "hover:text-amber-500 dark:hover:text-amber-400",
+                skills: "hover:text-emerald-600 dark:hover:text-emerald-400",
+                contact: "hover:text-cyan-600 dark:hover:text-cyan-400",
+              }[item.id] || "hover:text-accent-c";
+
+              return (
+                <motion.button
+                  key={item.id}
+                  onClick={() => scrollTo(item.id)}
+                  className="relative px-3 py-2 text-sm font-medium transition-colors"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                 >
-                  {item.label}
-                </span>
-                {active === item.id && (
-                  <motion.div
-                    layoutId="nav-active"
-                    className="absolute inset-0 neo-inset-sm -z-10 rounded-xl"
-                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                  />
-                )}
-              </motion.button>
-            ))}
+                  <span
+                    className={
+                      active === item.id
+                        ? activeColor
+                        : `text-muted-c ${hoverColor} transition-colors`
+                    }
+                  >
+                    {item.label}
+                  </span>
+                  {active === item.id && (
+                    <motion.div
+                      layoutId="nav-active"
+                      className="absolute inset-0 neo-inset-sm -z-10 rounded-xl"
+                      transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                    />
+                  )}
+                </motion.button>
+              );
+            })}
           </div>
 
           {/* Right actions */}
@@ -153,19 +175,41 @@ export default function Navbar({
           transition={{ duration: 0.3 }}
         >
           <div className="neo-sm p-3 flex flex-col gap-1">
-            {NAV_ITEMS.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => scrollTo(item.id)}
-                className={`text-left px-4 py-3 rounded-xl text-sm font-medium transition-all ${
-                  active === item.id
-                    ? "neo-inset-sm text-accent-c"
-                    : "hover:neo-inset-sm"
-                }`}
-              >
-                {item.label}
-              </button>
-            ))}
+            {NAV_ITEMS.map((item) => {
+              const activeColor = {
+                hero: "text-blue-600 dark:text-blue-400",
+                about: "text-indigo-600 dark:text-indigo-400",
+                awards: "text-purple-600 dark:text-purple-400",
+                projects: "text-rose-600 dark:text-rose-400",
+                experience: "text-amber-500 dark:text-amber-400",
+                skills: "text-emerald-600 dark:text-emerald-400",
+                contact: "text-cyan-600 dark:text-cyan-400",
+              }[item.id] || "text-accent-c";
+
+              const hoverColor = {
+                hero: "hover:text-blue-600 dark:hover:text-blue-400",
+                about: "hover:text-indigo-600 dark:hover:text-indigo-400",
+                awards: "hover:text-purple-600 dark:hover:text-purple-400",
+                projects: "hover:text-rose-600 dark:hover:text-rose-400",
+                experience: "hover:text-amber-500 dark:hover:text-amber-400",
+                skills: "hover:text-emerald-600 dark:hover:text-emerald-400",
+                contact: "hover:text-cyan-600 dark:hover:text-cyan-400",
+              }[item.id] || "hover:text-accent-c";
+
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => scrollTo(item.id)}
+                  className={`text-left px-4 py-3 rounded-xl text-sm font-medium transition-all ${
+                    active === item.id
+                      ? `neo-inset-sm ${activeColor}`
+                      : `hover:neo-inset-sm text-muted-c ${hoverColor}`
+                  }`}
+                >
+                  {item.label}
+                </button>
+              );
+            })}
           </div>
         </motion.div>
       </motion.nav>

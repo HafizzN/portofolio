@@ -65,7 +65,7 @@ export default function Contact() {
           eyebrow={t.contact.eyebrow}
           title={
             <>
-              {t.contact.title1} <span className="text-gradient-accent">{t.contact.title2}</span>
+              {t.contact.title1} <span className="text-cyan-600 dark:text-cyan-400">{t.contact.title2}</span>
             </>
           }
           subtitle={t.contact.subtitle}
@@ -132,15 +132,23 @@ export default function Contact() {
                   {t.contact.findOnline}
                 </p>
                 <div className="flex gap-2">
-                  {[Github, Linkedin, Globe, MessageCircle].map((Icon, i) => (
+                  {[
+                    { Icon: Github, href: profile.github, title: "GitHub" },
+                    { Icon: Linkedin, href: profile.linkedin, title: "LinkedIn" },
+                    { Icon: Globe, href: profile.portfolio, title: "Portfolio" },
+                    { Icon: MessageCircle, href: `https://wa.me/${profile.phone.replace(/[^0-9]/g, "")}`, title: "WhatsApp" },
+                  ].map((item, i) => (
                     <motion.a
                       key={i}
-                      href="#"
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       whileHover={{ scale: 1.15, y: -4 }}
                       whileTap={{ scale: 0.9 }}
                       className="neo-sm neo-hover neo-press w-11 h-11 rounded-2xl flex items-center justify-center cursor-pointer"
+                      title={item.title}
                     >
-                      <Icon className="w-4 h-4 text-muted-c hover:text-accent-c transition-colors" />
+                      <item.Icon className="w-4 h-4 text-muted-c hover:text-accent-c transition-colors" />
                     </motion.a>
                   ))}
                 </div>
@@ -209,7 +217,7 @@ export default function Contact() {
                       setForm({ ...form, message: e.target.value })
                     }
                     placeholder={t.contact.placeholderMessage}
-                    className="neo-inset-sm w-full px-4 py-3 rounded-xl text-sm outline-none focus:ring-2 focus:ring-accent-c transition-all bg-transparent resize-none flex-1"
+                    className="neo-inset-sm w-full px-4 py-3 rounded-xl text-sm outline-none focus:ring-2 focus:ring-cyan-500 transition-all bg-transparent resize-none flex-1"
                   />
                 </div>
 
@@ -229,13 +237,13 @@ export default function Contact() {
                           repeat: Infinity,
                           ease: "linear",
                         }}
-                        className="w-4 h-4 border-2 border-accent-c border-t-transparent rounded-full"
+                        className="w-4 h-4 border-2 border-cyan-500 border-t-transparent rounded-full"
                       />
                       {t.contact.sending}
                     </>
                   ) : (
                     <>
-                      <Send className="w-4 h-4 text-accent-c" />
+                      <Send className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
                       {t.contact.send}
                     </>
                   )}

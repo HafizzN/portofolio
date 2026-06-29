@@ -17,7 +17,7 @@ export default function About() {
           eyebrow={t.about.eyebrow}
           title={
             <>
-              {t.about.title1} <span className="text-gradient-accent">{t.about.title2}</span>
+              {t.about.title1} <span className="text-indigo-600 dark:text-indigo-400">{t.about.title2}</span>
             </>
           }
           subtitle={t.about.subtitle}
@@ -43,7 +43,7 @@ export default function About() {
             />
             <div className="flex items-center gap-3 mb-5">
               <div className="neo-inset-sm w-12 h-12 rounded-2xl flex items-center justify-center">
-                <Target className="w-5 h-5 text-accent-c" />
+                <Target className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
               </div>
               <h3 className="text-xl font-bold">{t.about.whoIam}</h3>
             </div>
@@ -72,7 +72,7 @@ export default function About() {
                   whileHover={{ scale: 1.05 }}
                   className="neo-inset-sm p-3 rounded-2xl flex flex-col items-center gap-2 text-center"
                 >
-                  <item.icon className="w-5 h-5 text-accent-c" />
+                  <item.icon className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
                   <span className="text-xs font-semibold tracking-wider uppercase">
                     {item.label}
                   </span>
@@ -94,7 +94,7 @@ export default function About() {
             >
               <div className="flex items-center gap-3 mb-4">
                 <div className="neo-inset-sm w-10 h-10 rounded-xl flex items-center justify-center">
-                  <GraduationCap className="w-4 h-4 text-accent-c" />
+                  <GraduationCap className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
                 </div>
                 <h3 className="font-bold">{t.about.education}</h3>
               </div>
@@ -104,7 +104,7 @@ export default function About() {
                   <p className="text-xs text-muted-c">{edu.degree}</p>
                   <div className="flex items-center justify-between text-xs">
                     <span className="text-muted-c">{edu.period}</span>
-                    <span className="neo-inset-sm px-2.5 py-1 rounded-full font-bold text-accent-c">
+                    <span className="neo-inset-sm px-2.5 py-1 rounded-full font-bold text-indigo-600 dark:text-indigo-400">
                       {t.about.gpa} {edu.gpa}
                     </span>
                   </div>
@@ -124,36 +124,33 @@ export default function About() {
             >
               <div className="flex items-center gap-3 mb-3">
                 <div className="neo-inset-sm w-10 h-10 rounded-xl flex items-center justify-center">
-                  <Eye className="w-4 h-4 text-accent-c" />
+                  <Eye className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
                 </div>
                 <h3 className="font-bold">{t.about.visionTitle}</h3>
               </div>
               <p className="text-sm leading-relaxed text-muted-c">
                 {t.about.visionText}
               </p>
-              {/* Mini progress indicator */}
-              <div className="mt-4 space-y-2">
-                {[
-                  { label: t.about.engineering, value: 85 },
-                  { label: t.about.strategy, value: 92 },
-                ].map((item, i) => (
-                  <div key={i}>
-                    <div className="flex justify-between text-xs mb-1">
-                      <span className="text-muted-c">{item.label}</span>
-                      <span className="font-bold text-accent-c">
-                        {item.value}%
-                      </span>
-                    </div>
-                    <div className="neo-inset-sm h-2 rounded-full overflow-hidden">
-                      <motion.div
-                        initial={{ width: 0 }}
-                        whileInView={{ width: `${item.value}%` }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 1, delay: 0.3 + i * 0.2 }}
-                        className="h-full neo-accent-bg rounded-full"
-                      />
-                    </div>
-                  </div>
+              {/* Localized expertise pills */}
+              <div className="mt-5 flex flex-wrap gap-2">
+                {(t.about.visionSkills || [
+                  "Business Strategy",
+                  "Product Development",
+                  "Data Analytics",
+                  "Digital Marketing",
+                  "Software Engineering"
+                ]).map((skill: string, i: number) => (
+                  <motion.span
+                    key={i}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.3, delay: 0.1 + i * 0.05 }}
+                    whileHover={{ scale: 1.05 }}
+                    className="neo-inset-sm px-3.5 py-2 rounded-xl text-xs font-semibold text-indigo-600 dark:text-indigo-400 select-none"
+                  >
+                    {skill}
+                  </motion.span>
                 ))}
               </div>
             </motion.div>

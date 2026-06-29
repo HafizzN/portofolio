@@ -10,29 +10,37 @@ import {
 } from "react";
 import { translations, type Lang, type TranslationKeys } from "./translations";
 
+type Translations = typeof translations[keyof typeof translations];
+
 interface LanguageContextValue {
   lang: Lang;
   setLang: (l: Lang) => void;
   toggleLang: () => void;
-  t: TranslationKeys;
+  t: Translations;
 }
 
 const LanguageContext = createContext<LanguageContextValue | null>(null);
 
-// Lazy initializer — runs once on first client render, no extra effect needed
-function getInitialLang(): Lang {
-  if (typeof window === "undefined") return "id";
-  try {
-    const saved = localStorage.getItem("portfolio-lang") as Lang | null;
-    if (saved === "en" || saved === "id") return saved;
-  } catch {
-    // ignore
-  }
-  return "id";
-}
-
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [lang, setLangState] = useState<Lang>(getInitialLang);
+  const [lang, setLangState] = useState<Lang>("id");
+
+  // Read saved language from localStorage on client-side mount to avoid hydration mismatch
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    try {
+      const saved = localStorage.getItem("portfolio-lang") as Lang | null;
+      if (saved === "en" || saved === "id") {
+        timer = setTimeout(() => {
+          setLangState(saved);
+        }, 0);
+      }
+    } catch {
+      // ignore
+    }
+    return () => {
+      if (timer) clearTimeout(timer);
+    };
+  }, []);
 
   // Persist language change & update <html lang>
   const setLang = useCallback((l: Lang) => {
@@ -62,7 +70,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     });
   }, []);
 
-  // Update html lang attribute on mount (no setState, just side effect)
+  // Update html lang attribute on mount/change
   useEffect(() => {
     if (typeof document !== "undefined") {
       document.documentElement.lang = lang;

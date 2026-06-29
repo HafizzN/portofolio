@@ -18,6 +18,8 @@ import {
   Code2,
   Sparkles,
   ArrowDown,
+  Trophy,
+  Download,
 } from "lucide-react";
 import Image from "next/image";
 import { useLanguage } from "@/lib/portfolio/language-context";
@@ -118,9 +120,9 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.45 }}
-              className="block text-gradient-accent"
+              className="block text-foreground"
             >
-              {profile.name}
+              Hafizul <span className="text-blue-600 dark:text-blue-400">Hanif</span>.
             </motion.span>
           </h1>
 
@@ -192,6 +194,16 @@ export default function Hero() {
               <Award className="w-4 h-4 text-accent-2-c" />
               {t.hero.seeAchievements}
             </motion.button>
+            <motion.a
+              href="/CV_Hafizul_Hanif.pdf"
+              download="CV_Hafizul_Hanif.pdf"
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.96 }}
+              className="neo-inset neo-hover px-6 py-3 rounded-2xl font-semibold text-sm flex items-center gap-2 cursor-pointer"
+            >
+              <Download className="w-4 h-4 text-accent-3-c" />
+              {t.hero.downloadCV}
+            </motion.a>
           </motion.div>
 
           {/* Social icons */}
@@ -201,26 +213,33 @@ export default function Hero() {
             transition={{ delay: 1 }}
             className="flex gap-2 justify-center lg:justify-start mt-6"
           >
-            {[Github, Linkedin, Globe].map((Icon, i) => (
+            {[
+              { Icon: Github, href: profile.github, title: "GitHub" },
+              { Icon: Linkedin, href: profile.linkedin, title: "LinkedIn" },
+              { Icon: Globe, href: profile.portfolio, title: "Portfolio" },
+            ].map((item, i) => (
               <motion.a
                 key={i}
-                href="#"
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
                 whileHover={{ scale: 1.15, y: -3 }}
                 whileTap={{ scale: 0.9 }}
                 className="neo-sm neo-hover neo-press w-10 h-10 rounded-xl flex items-center justify-center cursor-pointer"
+                title={item.title}
               >
-                <Icon className="w-4 h-4 text-muted-c hover:text-accent-c transition-colors" />
+                <item.Icon className="w-4 h-4 text-muted-c hover:text-accent-c transition-colors" />
               </motion.a>
             ))}
           </motion.div>
         </motion.div>
 
-        {/* Right side — 3D tilt card with avatar & stats */}
+        {/* Right side — 3D tilt card with poster image */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
-          className="perspective-1000"
+          className="perspective-1000 flex justify-center lg:justify-end"
         >
           <motion.div
             ref={ref}
@@ -231,118 +250,86 @@ export default function Hero() {
               rotateY,
               transformStyle: "preserve-3d",
             }}
-            className="neo-xl p-8 relative cursor-pointer"
+            className="neo-xl p-3.5 w-full max-w-sm aspect-[3/4] relative cursor-pointer group"
           >
-            {/* Animated badge top-right */}
-            <motion.div
-              style={{ transform: "translateZ(60px)" }}
-              className="absolute -top-3 -right-3 neo-sm px-3 py-1.5 rounded-full"
+            {/* Poster Inner Container with 3D Depth */}
+            <div 
+              className="relative w-full h-full rounded-[24px] overflow-hidden"
+              style={{ transform: "translateZ(30px)", transformStyle: "preserve-3d" }}
             >
-              <span className="text-[10px] font-bold tracking-wider uppercase text-accent-c flex items-center gap-1">
-                <Sparkles className="w-3 h-3" /> {t.hero.championBadge}
-              </span>
-            </motion.div>
+              <Image
+                src="/profile/hero-main.webp"
+                alt="Hafizul Hanif"
+                fill
+                sizes="384px"
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                priority
+              />
+              {/* Gradient Overlay for Text Readability */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-black/40 pointer-events-none" />
 
-            {/* Avatar 3D circle */}
-            <div
-              style={{ transform: "translateZ(50px)" }}
-              className="flex justify-center mb-6"
-            >
-              <motion.div
-                animate={{ y: [0, -8, 0] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                className="w-32 h-32 rounded-full neo-inset-lg flex items-center justify-center relative p-1.5"
+              {/* Card top-left label */}
+              <div 
+                style={{ transform: "translateZ(45px)" }}
+                className="absolute top-8 left-8 text-white text-left z-10 pointer-events-none"
               >
-                <div className="relative w-full h-full rounded-full overflow-hidden shadow-lg neo-inset-sm">
-                  <Image
-                    src="/profile/hafizul-hanif.webp"
-                    alt="Hafizul Hanif"
-                    fill
-                    sizes="128px"
-                    className="object-cover rounded-full"
-                    priority
-                  />
-                  {/* Subtle gradient overlay for depth */}
-                  <div
-                    className="absolute inset-0 rounded-full pointer-events-none"
-                    style={{
-                      background:
-                        "radial-gradient(circle at 30% 20%, rgba(255,255,255,0.25), transparent 50%)",
-                    }}
-                  />
+                <h3 className="text-2xl sm:text-3xl font-black tracking-tight leading-tight">
+                  Hafizul <span className="text-blue-500 dark:text-blue-400">Hanif</span>
+                </h3>
+                <p className="text-xs font-bold text-white/75 mt-1">
+                  {lang === "en" ? "Award-Winning Champion" : "Juara Berprestasi"}
+                </p>
+              </div>
+
+              {/* Floating trophy badge on card */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.4, delay: 0.6 }}
+                style={{ transform: "translateZ(50px)" }}
+                className="absolute top-8 right-7 flex flex-col items-center gap-1 z-10"
+              >
+                <div className="w-11 h-11 rounded-2xl bg-amber-500 flex items-center justify-center shadow-[0_0_15px_rgba(245,158,11,0.6)] border border-amber-400/30">
+                  <Trophy className="w-5 h-5 text-white" />
                 </div>
-                {/* Orbital ring */}
-                <motion.div
-                  className="absolute inset-0 rounded-full border-2 border-dashed pointer-events-none"
-                  style={{ borderColor: "var(--neo-accent)" }}
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                />
-                {/* Decorative floating dots around avatar */}
-                {[0, 120, 240].map((deg, i) => (
-                  <motion.div
-                    key={i}
-                    className="absolute w-2 h-2 rounded-full"
-                    style={{
-                      background: i === 0 ? "var(--neo-accent)" : i === 1 ? "var(--neo-accent-2)" : "var(--neo-accent-3)",
-                      top: "50%",
-                      left: "50%",
-                      marginTop: "-4px",
-                      marginLeft: "-4px",
-                      transformOrigin: "center",
-                      transform: `rotate(${deg}deg) translateY(-72px)`,
-                      boxShadow: `0 0 10px ${i === 0 ? "var(--neo-glow)" : "transparent"}`,
-                    }}
-                    animate={{ rotate: [deg, deg + 360] }}
-                    transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-                  />
-                ))}
+                <span className="text-[10px] font-black text-white bg-black/40 backdrop-blur-md px-2 py-0.5 rounded-md mt-1">
+                  11x
+                </span>
               </motion.div>
-            </div>
 
-            {/* Name & title */}
-            <div
-              style={{ transform: "translateZ(40px)" }}
-              className="text-center mb-6"
-            >
-              <h3 className="text-xl font-bold mb-1">{profile.name}</h3>
-              <p className="text-xs text-muted-c tracking-wider uppercase">
-                {p.title}
-              </p>
-            </div>
-
-            {/* Stats grid */}
-            <div
-              style={{ transform: "translateZ(30px)" }}
-              className="grid grid-cols-2 gap-3"
-            >
-              {stats.map((stat, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.6 + i * 0.1 }}
-                  whileHover={{ scale: 1.05 }}
-                  className="neo-inset-sm p-4 rounded-2xl text-center"
+              {/* Glassmorphism bottom bar */}
+              <div 
+                style={{ transform: "translateZ(40px)" }}
+                className="absolute bottom-6 left-6 right-6 flex items-center justify-between text-white p-3 bg-black/40 backdrop-blur-md rounded-[24px] border border-white/10 z-10"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full border border-white/20 overflow-hidden relative shrink-0">
+                    <Image
+                      src="/profile/hafizul-hanif.webp"
+                      alt="Foto Profil HafizzN"
+                      fill
+                      sizes="40px"
+                      className="object-cover"
+                    />
+                  </div>
+                  <div className="text-left">
+                    <p className="text-sm font-black text-white">@HafizzN</p>
+                    <div className="flex items-center gap-1.5 mt-0.5">
+                      <div className="w-2.5 h-2.5 bg-green-400 rounded-full shadow-[0_0_8px_rgba(74,222,128,0.8)] animate-pulse" />
+                      <p className="text-[10px] font-bold text-white/80">Online</p>
+                    </div>
+                  </div>
+                </div>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    scrollTo("contact");
+                  }}
+                  className="px-4 py-2 bg-white/15 hover:bg-white/25 text-white text-xs font-black rounded-full transition-all border border-white/10 backdrop-blur-sm shadow-sm cursor-pointer"
                 >
-                  <motion.p
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{
-                      delay: 0.7 + i * 0.1,
-                      type: "spring",
-                      stiffness: 200,
-                    }}
-                    className="text-2xl font-black text-gradient-accent"
-                  >
-                    {stat.value}
-                    {stat.suffix}
-                  </motion.p>
-                  <p className="text-[10px] text-muted-c tracking-wider uppercase mt-1">
-                    {stat.label}
-                  </p>
-                </motion.div>
-              ))}
+                  {lang === "en" ? "Contact Me" : "Hubungi Saya"}
+                </button>
+              </div>
             </div>
           </motion.div>
         </motion.div>

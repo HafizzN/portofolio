@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import dynamic from "next/dynamic";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
+import Preloader from "@/components/portfolio/preloader";
 import Navbar from "@/components/portfolio/navbar";
 import Hero from "@/components/portfolio/hero";
 import About from "@/components/portfolio/about";
@@ -13,12 +13,7 @@ import Skills from "@/components/portfolio/skills";
 import Contact from "@/components/portfolio/contact";
 import Footer from "@/components/portfolio/footer";
 import ScrollProgress from "@/components/portfolio/scroll-progress";
-
-// Load intro only on client (it uses framer-motion's useMotionValueEvent)
-const GreetingsIntro = dynamic(
-  () => import("@/components/portfolio/greetings-intro"),
-  { ssr: false }
-);
+import SnowEffect from "@/components/portfolio/snow-effect";
 
 export default function Home() {
   const [introDone, setIntroDone] = useState(false);
@@ -46,10 +41,9 @@ export default function Home() {
   return (
     <>
       <ScrollProgress />
+      {introDone && <SnowEffect />}
 
-      <AnimatePresence>
-        {!introDone && <GreetingsIntro onComplete={() => setIntroDone(true)} />}
-      </AnimatePresence>
+      {!introDone && <Preloader onFinish={() => setIntroDone(true)} />}
 
       <motion.div
         initial={{ opacity: 0 }}

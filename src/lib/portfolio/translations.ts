@@ -37,6 +37,7 @@ export const translations = {
       seeAchievements: "See Achievements",
       scroll: "Scroll",
       championBadge: "11× Champion",
+      downloadCV: "Download CV",
     },
     // About
     about: {
@@ -54,6 +55,13 @@ export const translations = {
       leadership: "Leadership",
       education: "Education",
       gpa: "GPA",
+      visionSkills: [
+        "Business Strategy",
+        "Product Development",
+        "Data Analytics",
+        "Digital Marketing",
+        "Software Engineering"
+      ],
     },
     // Awards
     awards: {
@@ -188,6 +196,7 @@ export const translations = {
       seeAchievements: "Lihat Prestasi",
       scroll: "Gulir",
       championBadge: "11× Juara",
+      downloadCV: "Unduh CV",
     },
     // About
     about: {
@@ -205,6 +214,13 @@ export const translations = {
       leadership: "Kepemimpinan",
       education: "Pendidikan",
       gpa: "IPK",
+      visionSkills: [
+        "Strategi Bisnis",
+        "Pengembangan Produk",
+        "Analisis Data",
+        "Pemasaran Digital",
+        "Rekayasa Perangkat Lunak"
+      ],
     },
     // Awards
     awards: {

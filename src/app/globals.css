@@ -54,10 +54,10 @@
   --neo-text-muted: #6b7280;
   --neo-light: rgba(255, 255, 255, 0.95);
   --neo-dark: rgba(163, 177, 198, 0.55);
-  --neo-accent: #c44569;
+  --neo-accent: #0fa37b;
   --neo-accent-2: #f8b500;
   --neo-accent-3: #3a6ea5;
-  --neo-glow: rgba(196, 69, 105, 0.35);
+  --neo-glow: rgba(15, 163, 123, 0.35);
 
   --background: #e6e9ef;
   --foreground: #2d3142;
@@ -100,10 +100,10 @@
   --neo-text-muted: #94a3b8;
   --neo-light: rgba(60, 70, 90, 0.45);
   --neo-dark: rgba(0, 0, 0, 0.55);
-  --neo-accent: #ff6b9d;
+  --neo-accent: #34d399;
   --neo-accent-2: #ffd166;
   --neo-accent-3: #64b5f6;
-  --neo-glow: rgba(255, 107, 157, 0.4);
+  --neo-glow: rgba(52, 211, 153, 0.4);
 
   --background: #1a1d24;
   --foreground: #e6e9ef;
@@ -273,13 +273,9 @@
   .neo-scroll::-webkit-scrollbar-thumb:hover {
     background: var(--neo-accent);
   }
-  /* Gradient text */
+  /* Solid accent text */
   .text-gradient-accent {
-    background: linear-gradient(135deg, var(--neo-accent), var(--neo-accent-2));
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
+    color: var(--neo-accent);
   }
   /* Glass effect */
   .glass {

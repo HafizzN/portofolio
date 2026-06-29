@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Heart, ArrowUp, Github, Linkedin, Mail, Globe } from "lucide-react";
+import { ArrowUp, Github, Linkedin, Mail, Globe } from "lucide-react";
 import { useLanguage } from "@/lib/portfolio/language-context";
 import { getProfile, profile } from "@/lib/portfolio/cv-data";
 
@@ -92,15 +92,23 @@ export default function Footer() {
             {/* Right: Social */}
             <div className="flex md:justify-end">
               <div className="flex gap-2">
-                {[Mail, Github, Linkedin, Globe].map((Icon, i) => (
+                {[
+                  { Icon: Mail, href: `mailto:${profile.email}`, title: "Email" },
+                  { Icon: Github, href: profile.github, title: "GitHub" },
+                  { Icon: Linkedin, href: profile.linkedin, title: "LinkedIn" },
+                  { Icon: Globe, href: profile.portfolio, title: "Portfolio" },
+                ].map((item, i) => (
                   <motion.a
                     key={i}
-                    href="#"
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     whileHover={{ scale: 1.15, y: -3 }}
                     whileTap={{ scale: 0.9 }}
                     className="neo-sm neo-hover neo-press w-10 h-10 rounded-xl flex items-center justify-center cursor-pointer"
+                    title={item.title}
                   >
-                    <Icon className="w-4 h-4 text-muted-c hover:text-accent-c transition-colors" />
+                    <item.Icon className="w-4 h-4 text-muted-c hover:text-accent-c transition-colors" />
                   </motion.a>
                 ))}
               </div>
@@ -109,10 +117,8 @@ export default function Footer() {
 
           {/* Bottom bar */}
           <div className="mt-8 pt-6 border-t flex flex-col sm:flex-row justify-between items-center gap-3 relative z-10" style={{ borderColor: "var(--border)" }}>
-            <p className="text-xs text-muted-c flex items-center gap-1.5">
-              {t.footer.madeWith}
-              <Heart className="w-3 h-3 text-accent-c fill-current" />
-              {t.footer.caffeine} · {new Date().getFullYear()}
+            <p className="text-xs text-muted-c">
+              © {new Date().getFullYear()} {profile.name}. All rights reserved.
             </p>
             <motion.button
               onClick={scrollToTop}
