@@ -11,6 +11,7 @@ import {
   Languages,
 } from "lucide-react";
 import SectionTitle from "./section-title";
+import { useLanguage } from "@/lib/portfolio/language-context";
 import { skillGroups, languages } from "@/lib/portfolio/cv-data";
 
 const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -78,17 +79,18 @@ function SkillBar({
 }
 
 export default function Skills() {
+  const { t } = useLanguage();
   return (
     <section id="skills" className="py-20 px-4 relative">
       <div className="max-w-6xl mx-auto">
         <SectionTitle
-          eyebrow="Capabilities"
+          eyebrow={t.skills.eyebrow}
           title={
             <>
-              Skills & <span className="text-gradient-accent">Expertise</span>
+              {t.skills.title1} <span className="text-gradient-accent">{t.skills.title2}</span>
             </>
           }
-          subtitle="A diverse toolkit spanning full-stack engineering, business strategy, design, and leadership."
+          subtitle={t.skills.subtitle}
         />
 
         {/* Skills grid */}
@@ -126,7 +128,7 @@ export default function Skills() {
                   <div>
                     <h3 className="font-bold text-sm">{group.category}</h3>
                     <p className="text-[10px] text-muted-c tracking-wider uppercase">
-                      {group.skills.length} skills
+                      {group.skills.length} {t.skills.skillsCount}
                     </p>
                   </div>
                 </div>
@@ -163,7 +165,7 @@ export default function Skills() {
               <div className="neo-inset-sm w-12 h-12 rounded-2xl flex items-center justify-center">
                 <Languages className="w-5 h-5 text-accent-c" />
               </div>
-              <h3 className="font-bold text-sm">Languages</h3>
+              <h3 className="font-bold text-sm">{t.skills.languages}</h3>
             </div>
             <div className="space-y-4">
               {languages.map((lang, i) => (
@@ -207,7 +209,7 @@ export default function Skills() {
               <div className="neo-inset-sm w-12 h-12 rounded-2xl flex items-center justify-center">
                 <Trophy className="w-5 h-5 text-accent-2-c" />
               </div>
-              <h3 className="font-bold text-sm">Certifications</h3>
+              <h3 className="font-bold text-sm">{t.skills.certifications}</h3>
             </div>
             <div className="space-y-3">
               {[

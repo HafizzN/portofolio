@@ -17,9 +17,11 @@ import {
   Layers,
 } from "lucide-react";
 import SectionTitle from "./section-title";
+import { useLanguage } from "@/lib/portfolio/language-context";
 import { projects, type Project } from "@/lib/portfolio/cv-data";
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
+  const { t } = useLanguage();
   const ref = useRef<HTMLDivElement>(null);
   const [hovered, setHovered] = useState(false);
   const mouseX = useMotionValue(0);
@@ -75,7 +77,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             <div className="neo-inset-sm px-2.5 py-1 rounded-full flex items-center gap-1">
               <Sparkles className="w-3 h-3 text-accent-2-c" />
               <span className="text-[9px] font-bold tracking-wider uppercase text-accent-2-c">
-                Featured
+                {t.projects.featured}
               </span>
             </div>
           </motion.div>
@@ -150,7 +152,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             className="neo-sm neo-hover neo-press w-full px-4 py-2.5 rounded-xl text-xs font-bold flex items-center justify-center gap-2 group/btn"
           >
             <ExternalLink className="w-3.5 h-3.5 text-accent-c group-hover/btn:rotate-12 transition-transform" />
-            <span>Live Demo</span>
+            <span>{t.projects.liveDemo}</span>
             <Star className="w-3 h-3 text-accent-2-c ml-auto" />
           </motion.a>
         )}
@@ -170,6 +172,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 }
 
 export default function Projects() {
+  const { t } = useLanguage();
   const [showAll, setShowAll] = useState(false);
   const visible = showAll ? projects : projects.slice(0, 6);
 
@@ -177,13 +180,13 @@ export default function Projects() {
     <section id="projects" className="py-20 px-4 relative">
       <div className="max-w-6xl mx-auto">
         <SectionTitle
-          eyebrow="Engineering Work"
+          eyebrow={t.projects.eyebrow}
           title={
             <>
-              Technical <span className="text-gradient-accent">Projects</span>
+              {t.projects.title1} <span className="text-gradient-accent">{t.projects.title2}</span>
             </>
           }
-          subtitle="Production-ready Laravel applications — from ERP systems to AI-powered content platforms, all built and deployed live."
+          subtitle={t.projects.subtitle}
         />
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -210,8 +213,8 @@ export default function Projects() {
             >
               <Layers className="w-4 h-4 text-accent-c" />
               {showAll
-                ? "Show Less"
-                : `Show All Projects (${projects.length})`}
+                ? t.projects.showLess
+                : `${t.projects.showAll} (${projects.length})`}
             </motion.button>
           </motion.div>
         )}

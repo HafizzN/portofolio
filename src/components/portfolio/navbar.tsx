@@ -3,16 +3,8 @@
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { useState } from "react";
 import { Menu, X, Moon, Sun } from "lucide-react";
-
-const NAV_ITEMS = [
-  { id: "hero", label: "Home" },
-  { id: "about", label: "About" },
-  { id: "awards", label: "Awards" },
-  { id: "projects", label: "Projects" },
-  { id: "experience", label: "Experience" },
-  { id: "skills", label: "Skills" },
-  { id: "contact", label: "Contact" },
-];
+import { useLanguage } from "@/lib/portfolio/language-context";
+import LanguageToggle from "./language-toggle";
 
 export default function Navbar({
   theme,
@@ -21,9 +13,20 @@ export default function Navbar({
   theme: "light" | "dark";
   onToggleTheme: () => void;
 }) {
+  const { t } = useLanguage();
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState("hero");
   const [scrolled, setScrolled] = useState(false);
+
+  const NAV_ITEMS = [
+    { id: "hero", label: t.nav.home },
+    { id: "about", label: t.nav.about },
+    { id: "awards", label: t.nav.awards },
+    { id: "projects", label: t.nav.projects },
+    { id: "experience", label: t.nav.experience },
+    { id: "skills", label: t.nav.skills },
+    { id: "contact", label: t.nav.contact },
+  ];
 
   const { scrollY } = useScroll();
   useMotionValueEvent(scrollY, "change", (v) => {
@@ -57,14 +60,14 @@ export default function Navbar({
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
         <div
-          className={`neo-sm flex items-center justify-between px-4 sm:px-6 py-3 transition-all duration-300 ${
+          className={`neo-sm flex items-center justify-between gap-2 px-3 sm:px-6 py-3 transition-all duration-300 ${
             scrolled ? "neo-glow" : ""
           }`}
         >
           {/* Logo */}
           <motion.button
             onClick={() => scrollTo("hero")}
-            className="flex items-center gap-2 group"
+            className="flex items-center gap-2 group flex-shrink-0"
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
           >
@@ -74,7 +77,7 @@ export default function Navbar({
             <div className="hidden sm:block">
               <p className="font-bold text-sm leading-tight">Hafizul Hanif</p>
               <p className="text-[10px] text-muted-c tracking-wider uppercase">
-                Portfolio
+                {t.nav.portfolio}
               </p>
             </div>
           </motion.button>
@@ -110,7 +113,9 @@ export default function Navbar({
           </div>
 
           {/* Right actions */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
+            <LanguageToggle />
+
             <motion.button
               onClick={onToggleTheme}
               className="neo-sm neo-hover neo-press w-9 h-9 rounded-xl flex items-center justify-center"
@@ -132,11 +137,7 @@ export default function Navbar({
               whileTap={{ scale: 0.9 }}
               aria-label="Menu"
             >
-              {open ? (
-                <X className="w-4 h-4" />
-              ) : (
-                <Menu className="w-4 h-4" />
-              )}
+              {open ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
             </motion.button>
           </div>
         </div>

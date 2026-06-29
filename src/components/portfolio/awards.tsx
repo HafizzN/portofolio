@@ -9,6 +9,7 @@ import {
 import { useRef, useState } from "react";
 import { Trophy, Medal, Crown, Star, Calendar, Building2 } from "lucide-react";
 import SectionTitle from "./section-title";
+import { useLanguage } from "@/lib/portfolio/language-context";
 import { awards, type Award } from "@/lib/portfolio/cv-data";
 
 const LEVEL_STYLES = {
@@ -16,23 +17,21 @@ const LEVEL_STYLES = {
     icon: Crown,
     color: "var(--neo-accent)",
     glow: "var(--neo-glow)",
-    label: "International",
   },
   Nasional: {
     icon: Trophy,
     color: "var(--neo-accent-2)",
     glow: "rgba(248, 181, 0, 0.4)",
-    label: "National",
   },
   Universitas: {
     icon: Medal,
     color: "var(--neo-accent-3)",
     glow: "rgba(58, 110, 165, 0.4)",
-    label: "University",
   },
 } as const;
 
 function AwardCard({ award, index }: { award: Award; index: number }) {
+  const { t } = useLanguage();
   const ref = useRef<HTMLDivElement>(null);
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -60,6 +59,12 @@ function AwardCard({ award, index }: { award: Award; index: number }) {
 
   const style = LEVEL_STYLES[award.level];
   const Icon = style.icon;
+  const levelLabel =
+    award.level === "Internasional"
+      ? t.awards.international
+      : award.level === "Nasional"
+      ? t.awards.national
+      : t.awards.university;
 
   return (
     <motion.div
@@ -104,7 +109,7 @@ function AwardCard({ award, index }: { award: Award; index: number }) {
             className="neo-inset-sm px-3 py-1 rounded-full text-[10px] font-bold tracking-wider uppercase"
             style={{ color: style.color }}
           >
-            {style.label}
+            {levelLabel}
           </span>
         </div>
 
@@ -140,7 +145,7 @@ function AwardCard({ award, index }: { award: Award; index: number }) {
           whileHover={{ scale: 1.03 }}
           className="neo-inset-sm p-3 rounded-xl mb-4 flex items-center justify-between"
         >
-          <span className="text-xs text-muted-c">Achievement</span>
+          <span className="text-xs text-muted-c">{t.awards.achievement}</span>
           <span
             className="text-sm font-black"
             style={{ color: style.color }}
@@ -178,6 +183,7 @@ function AwardCard({ award, index }: { award: Award; index: number }) {
 }
 
 export default function Awards() {
+  const { t } = useLanguage();
   const [filter, setFilter] = useState<"all" | "Internasional" | "Nasional">(
     "all"
   );
@@ -197,31 +203,35 @@ export default function Awards() {
     <section id="awards" className="py-20 px-4 relative">
       <div className="max-w-6xl mx-auto">
         <SectionTitle
-          eyebrow="Hall of Fame"
+          eyebrow={t.awards.eyebrow}
           title={
             <>
-              11× <span className="text-gradient-accent">Championships</span>
+              {t.awards.title1} <span className="text-gradient-accent">{t.awards.title2}</span>
             </>
           }
-          subtitle="A consistent record of national & international business simulation victories — proof of strategic thinking under pressure."
+          subtitle={t.awards.subtitle}
         />
 
         {/* Filter tabs */}
         <div className="flex justify-center gap-2 mb-10">
-          {(["all", "Internasional", "Nasional"] as const).map((f) => (
+          {([
+            { key: "all" as const, label: t.awards.all },
+            { key: "Internasional" as const, label: t.awards.international },
+            { key: "Nasional" as const, label: t.awards.national },
+          ]).map((f) => (
             <motion.button
-              key={f}
-              onClick={() => setFilter(f)}
+              key={f.key}
+              onClick={() => setFilter(f.key)}
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
               className={`px-4 py-2 rounded-full text-xs font-bold tracking-wider uppercase transition-all ${
-                filter === f
+                filter === f.key
                   ? "neo neo-glow text-accent-c"
                   : "neo-inset-sm text-muted-c hover:text-foreground"
               }`}
             >
-              {f === "all" ? "All" : LEVEL_STYLES[f].label}
-              <span className="ml-1.5 opacity-70">({counts[f]})</span>
+              {f.label}
+              <span className="ml-1.5 opacity-70">({counts[f.key]})</span>
             </motion.button>
           ))}
         </div>
@@ -245,10 +255,10 @@ export default function Awards() {
           className="mt-10 neo p-6 grid grid-cols-2 sm:grid-cols-4 gap-4"
         >
           {[
-            { label: "International Wins", value: 6, icon: Crown },
-            { label: "National Wins", value: 4, icon: Trophy },
-            { label: "Total Championships", value: 11, icon: Medal },
-            { label: "Years Active", value: 2, icon: Calendar },
+            { label: t.awards.bottomStats.intlWins, value: 6, icon: Crown },
+            { label: t.awards.bottomStats.natWins, value: 4, icon: Trophy },
+            { label: t.awards.bottomStats.total, value: 11, icon: Medal },
+            { label: t.awards.bottomStats.years, value: 2, icon: Calendar },
           ].map((stat, i) => (
             <motion.div
               key={i}

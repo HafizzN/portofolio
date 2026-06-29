@@ -3,34 +3,54 @@
 //  Source: CV_Hafizul_Hanif_v4.docx
 // ============================================================
 
+import type { Lang } from "./translations";
+
 export interface Profile {
   name: string;
-  title: string;
-  tagline: string;
+  title: { en: string; id: string };
+  tagline: { en: string; id: string };
   location: string;
   phone: string;
   email: string;
   linkedin: string;
   github: string;
   portfolio: string;
-  about: string;
+  about: { en: string; id: string };
   gpa: string;
 }
 
 export const profile: Profile = {
   name: "Hafizul Hanif",
-  title: "Laravel Developer & Business Strategist",
-  tagline: "Crafting Digital Solutions, Winning Global Competitions",
+  title: {
+    en: "Laravel Developer & Business Strategist",
+    id: "Laravel Developer & Strateg Bisnis",
+  },
+  tagline: {
+    en: "Crafting Digital Solutions, Winning Global Competitions",
+    id: "Menciptakan Solusi Digital, Memenangkan Kompetisi Global",
+  },
   location: "Padang, Sumatera Barat",
   phone: "+62 821-7173-0304",
   email: "Hafizulhanifr@gmail.com",
   linkedin: "LinkedIn",
   github: "GitHub",
   portfolio: "Portofolio",
-  about:
-    "Mahasiswa Bisnis Digital Internasional di Universitas Negeri Padang dengan rekam jejak prestasi kompetisi simulasi bisnis tingkat nasional dan internasional. Memiliki kemampuan teknis sebagai Laravel Developer dengan pengalaman membangun sistem ERP, platform e-commerce, dan website pariwisata yang telah di-hosting secara live. Berpengalaman dalam pengambilan keputusan strategis berbasis data, analisis bisnis, dan kepemimpinan tim lintas fungsi.",
+  about: {
+    en: "International Digital Business student at Universitas Negeri Padang with a track record of national and international business simulation championship achievements. Possesses technical skills as a Laravel Developer with experience building ERP systems, e-commerce platforms, and tourism websites that have been hosted live. Experienced in data-driven strategic decision-making, business analysis, and cross-functional team leadership.",
+    id: "Mahasiswa Bisnis Digital Internasional di Universitas Negeri Padang dengan rekam jejak prestasi kompetisi simulasi bisnis tingkat nasional dan internasional. Memiliki kemampuan teknis sebagai Laravel Developer dengan pengalaman membangun sistem ERP, platform e-commerce, dan website pariwisata yang telah di-hosting secara live. Berpengalaman dalam pengambilan keputusan strategis berbasis data, analisis bisnis, dan kepemimpinan tim lintas fungsi.",
+  },
   gpa: "3.68 / 4.00",
 };
+
+// Helper to access localized profile fields
+export function getProfile(lang: Lang) {
+  return {
+    ...profile,
+    title: profile.title[lang],
+    tagline: profile.tagline[lang],
+    about: profile.about[lang],
+  };
+}
 
 // ------------------------------------------------------------
 //  EDUCATION

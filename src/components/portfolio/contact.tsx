@@ -13,10 +13,12 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import SectionTitle from "./section-title";
+import { useLanguage } from "@/lib/portfolio/language-context";
 import { profile } from "@/lib/portfolio/cv-data";
 import { toast } from "sonner";
 
 export default function Contact() {
+  const { t } = useLanguage();
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [sending, setSending] = useState(false);
 
@@ -26,8 +28,8 @@ export default function Contact() {
     // Simulate send
     await new Promise((r) => setTimeout(r, 1200));
     setSending(false);
-    toast.success("Message sent! I'll get back to you soon. 🚀", {
-      description: `Thanks ${form.name || "there"}, I'll reply to ${form.email}.`,
+    toast.success(t.contact.toastSuccess, {
+      description: t.contact.toastDesc(form.email, form.email),
     });
     setForm({ name: "", email: "", message: "" });
   };
@@ -35,21 +37,21 @@ export default function Contact() {
   const contactItems = [
     {
       icon: Mail,
-      label: "Email",
+      label: t.contact.email,
       value: profile.email,
       href: `mailto:${profile.email}`,
       color: "var(--neo-accent)",
     },
     {
       icon: Phone,
-      label: "Phone",
+      label: t.contact.phone,
       value: profile.phone,
       href: `tel:${profile.phone.replace(/\s/g, "")}`,
       color: "var(--neo-accent-2)",
     },
     {
       icon: MapPin,
-      label: "Location",
+      label: t.contact.location,
       value: profile.location,
       href: "#",
       color: "var(--neo-accent-3)",
@@ -60,13 +62,13 @@ export default function Contact() {
     <section id="contact" className="py-20 px-4 relative">
       <div className="max-w-6xl mx-auto">
         <SectionTitle
-          eyebrow="Get In Touch"
+          eyebrow={t.contact.eyebrow}
           title={
             <>
-              Let's <span className="text-gradient-accent">Connect</span>
+              {t.contact.title1} <span className="text-gradient-accent">{t.contact.title2}</span>
             </>
           }
-          subtitle="Have a project, opportunity, or just want to chat about business simulations or Laravel architecture? My inbox is always open."
+          subtitle={t.contact.subtitle}
         />
 
         <div className="grid lg:grid-cols-2 gap-6">
@@ -88,10 +90,9 @@ export default function Contact() {
                 }}
               />
 
-              <h3 className="text-xl font-bold mb-2">Contact Information</h3>
+              <h3 className="text-xl font-bold mb-2">{t.contact.contactInfo}</h3>
               <p className="text-sm text-muted-c mb-6">
-                Reach out through any of these channels — I usually respond
-                within 24 hours.
+                {t.contact.contactInfoSub}
               </p>
 
               {/* Contact cards */}
@@ -128,7 +129,7 @@ export default function Contact() {
               {/* Social row */}
               <div className="mt-6 pt-6 border-t" style={{ borderColor: "var(--border)" }}>
                 <p className="text-[10px] text-muted-c tracking-wider uppercase font-semibold mb-3">
-                  Find Me Online
+                  {t.contact.findOnline}
                 </p>
                 <div className="flex gap-2">
                   {[Github, Linkedin, Globe, MessageCircle].map((Icon, i) => (
@@ -158,15 +159,15 @@ export default function Contact() {
               onSubmit={handleSubmit}
               className="neo p-6 sm:p-8 h-full flex flex-col"
             >
-              <h3 className="text-xl font-bold mb-2">Send a Message</h3>
+              <h3 className="text-xl font-bold mb-2">{t.contact.sendMessage}</h3>
               <p className="text-sm text-muted-c mb-6">
-                Fill in the form and I'll get back to you as soon as possible.
+                {t.contact.sendMessageSub}
               </p>
 
               <div className="space-y-4 flex-1 flex flex-col">
                 <div>
                   <label className="text-xs font-semibold text-muted-c mb-1.5 block tracking-wider uppercase">
-                    Your Name
+                    {t.contact.yourName}
                   </label>
                   <input
                     required
@@ -175,14 +176,14 @@ export default function Contact() {
                     onChange={(e) =>
                       setForm({ ...form, name: e.target.value })
                     }
-                    placeholder="John Doe"
+                    placeholder={t.contact.placeholderName}
                     className="neo-inset-sm w-full px-4 py-3 rounded-xl text-sm outline-none focus:ring-2 focus:ring-accent-c transition-all bg-transparent"
                   />
                 </div>
 
                 <div>
                   <label className="text-xs font-semibold text-muted-c mb-1.5 block tracking-wider uppercase">
-                    Your Email
+                    {t.contact.yourEmail}
                   </label>
                   <input
                     required
@@ -191,14 +192,14 @@ export default function Contact() {
                     onChange={(e) =>
                       setForm({ ...form, email: e.target.value })
                     }
-                    placeholder="john@example.com"
+                    placeholder={t.contact.placeholderEmail}
                     className="neo-inset-sm w-full px-4 py-3 rounded-xl text-sm outline-none focus:ring-2 focus:ring-accent-c transition-all bg-transparent"
                   />
                 </div>
 
                 <div className="flex-1 flex flex-col">
                   <label className="text-xs font-semibold text-muted-c mb-1.5 block tracking-wider uppercase">
-                    Message
+                    {t.contact.message}
                   </label>
                   <textarea
                     required
@@ -207,7 +208,7 @@ export default function Contact() {
                     onChange={(e) =>
                       setForm({ ...form, message: e.target.value })
                     }
-                    placeholder="Tell me about your project or opportunity..."
+                    placeholder={t.contact.placeholderMessage}
                     className="neo-inset-sm w-full px-4 py-3 rounded-xl text-sm outline-none focus:ring-2 focus:ring-accent-c transition-all bg-transparent resize-none flex-1"
                   />
                 </div>
@@ -230,12 +231,12 @@ export default function Contact() {
                         }}
                         className="w-4 h-4 border-2 border-accent-c border-t-transparent rounded-full"
                       />
-                      Sending...
+                      {t.contact.sending}
                     </>
                   ) : (
                     <>
                       <Send className="w-4 h-4 text-accent-c" />
-                      Send Message
+                      {t.contact.send}
                     </>
                   )}
                 </motion.button>

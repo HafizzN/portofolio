@@ -2,9 +2,13 @@
 
 import { motion } from "framer-motion";
 import { Heart, ArrowUp, Github, Linkedin, Mail, Globe } from "lucide-react";
-import { profile } from "@/lib/portfolio/cv-data";
+import { useLanguage } from "@/lib/portfolio/language-context";
+import { getProfile, profile } from "@/lib/portfolio/cv-data";
 
 export default function Footer() {
+  const { t, lang } = useLanguage();
+  const p = getProfile(lang);
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -47,36 +51,41 @@ export default function Footer() {
                     {profile.name}
                   </p>
                   <p className="text-[10px] text-muted-c tracking-wider uppercase">
-                    {profile.title}
+                    {p.title}
                   </p>
                 </div>
               </div>
               <p className="text-xs text-muted-c leading-relaxed">
-                {profile.tagline}
+                {p.tagline}
               </p>
             </div>
 
             {/* Middle: Quick links */}
             <div className="flex flex-col items-center gap-2">
               <p className="text-[10px] text-muted-c tracking-wider uppercase font-semibold mb-2">
-                Quick Links
+                {t.footer.quickLinks}
               </p>
               <div className="flex flex-wrap gap-2 justify-center">
-                {["hero", "about", "awards", "projects", "skills", "contact"].map(
-                  (link) => (
-                    <button
-                      key={link}
-                      onClick={() =>
-                        document
-                          .getElementById(link)
-                          ?.scrollIntoView({ behavior: "smooth" })
-                      }
-                      className="neo-sm neo-hover px-3 py-1.5 rounded-full text-[11px] font-semibold capitalize"
-                    >
-                      {link === "hero" ? "Home" : link}
-                    </button>
-                  )
-                )}
+                {([
+                  { id: "hero", label: t.nav.home },
+                  { id: "about", label: t.nav.about },
+                  { id: "awards", label: t.nav.awards },
+                  { id: "projects", label: t.nav.projects },
+                  { id: "skills", label: t.nav.skills },
+                  { id: "contact", label: t.nav.contact },
+                ]).map((link) => (
+                  <button
+                    key={link.id}
+                    onClick={() =>
+                      document
+                        .getElementById(link.id)
+                        ?.scrollIntoView({ behavior: "smooth" })
+                    }
+                    className="neo-sm neo-hover px-3 py-1.5 rounded-full text-[11px] font-semibold"
+                  >
+                    {link.label}
+                  </button>
+                ))}
               </div>
             </div>
 
@@ -101,9 +110,9 @@ export default function Footer() {
           {/* Bottom bar */}
           <div className="mt-8 pt-6 border-t flex flex-col sm:flex-row justify-between items-center gap-3 relative z-10" style={{ borderColor: "var(--border)" }}>
             <p className="text-xs text-muted-c flex items-center gap-1.5">
-              Made with
+              {t.footer.madeWith}
               <Heart className="w-3 h-3 text-accent-c fill-current" />
-              & lots of caffeine · {new Date().getFullYear()}
+              {t.footer.caffeine} · {new Date().getFullYear()}
             </p>
             <motion.button
               onClick={scrollToTop}
@@ -111,7 +120,7 @@ export default function Footer() {
               whileTap={{ scale: 0.95 }}
               className="neo-sm neo-hover neo-press px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5"
             >
-              Back to Top
+              {t.footer.backToTop}
               <ArrowUp className="w-3 h-3 text-accent-c" />
             </motion.button>
           </div>

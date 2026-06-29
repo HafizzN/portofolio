@@ -3,12 +3,14 @@
 import { motion, AnimatePresence, useMotionValue, useTransform, animate } from "framer-motion";
 import { useEffect, useState, useCallback } from "react";
 import { ChevronDown, Sparkles } from "lucide-react";
+import { useLanguage } from "@/lib/portfolio/language-context";
 
 interface SwordIntroProps {
   onComplete: () => void;
 }
 
 export default function SwordIntro({ onComplete }: SwordIntroProps) {
+  const { t } = useLanguage();
   const [phase, setPhase] = useState<
     "idle" | "drawing" | "revealed" | "exiting"
   >("idle");
@@ -92,7 +94,7 @@ export default function SwordIntro({ onComplete }: SwordIntroProps) {
             transition={{ duration: 0.6 }}
           >
             <p className="text-xs tracking-[0.4em] uppercase text-muted-c font-medium">
-              Forging Legacy
+              {t.intro.forgingLegacy}
             </p>
           </motion.div>
 
@@ -257,7 +259,7 @@ export default function SwordIntro({ onComplete }: SwordIntroProps) {
               className="text-xs sm:text-sm tracking-[0.35em] uppercase mb-6"
               style={{ color: "var(--neo-text-muted)" }}
             >
-              Laravel Developer · Business Strategist
+              {t.intro.subtitle}
             </p>
             <motion.button
               onClick={handleEnter}
@@ -266,7 +268,7 @@ export default function SwordIntro({ onComplete }: SwordIntroProps) {
               whileTap={{ scale: 0.97 }}
             >
               <Sparkles className="w-4 h-4 text-accent-c" />
-              <span>Unsheath the Portfolio</span>
+              <span>{t.intro.cta}</span>
               <ChevronDown className="w-4 h-4 group-hover:translate-y-1 transition-transform" />
             </motion.button>
           </motion.div>
@@ -279,7 +281,7 @@ export default function SwordIntro({ onComplete }: SwordIntroProps) {
             animate={{ opacity: 1 }}
             transition={{ delay: 1.5 }}
           >
-            Skip Intro →
+            {t.intro.skip}
           </motion.button>
         </motion.div>
       )}

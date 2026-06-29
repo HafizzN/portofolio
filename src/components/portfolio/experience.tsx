@@ -5,12 +5,11 @@ import {
   Briefcase,
   Users,
   Camera,
-  Palette,
-  Package,
   Calendar,
   MapPin,
 } from "lucide-react";
 import SectionTitle from "./section-title";
+import { useLanguage } from "@/lib/portfolio/language-context";
 import {
   internships,
   organizations,
@@ -136,17 +135,19 @@ function TimelineCard({
 }
 
 export default function ExperienceSection() {
+  const { t } = useLanguage();
+
   return (
     <section id="experience" className="py-20 px-4 relative">
       <div className="max-w-6xl mx-auto">
         <SectionTitle
-          eyebrow="Journey"
+          eyebrow={t.experience.eyebrow}
           title={
             <>
-              Beyond the <span className="text-gradient-accent">Code</span>
+              {t.experience.title1} <span className="text-gradient-accent">{t.experience.title2}</span>
             </>
           }
-          subtitle="Internship, organizational leadership, and committee roles that shaped my professional character."
+          subtitle={t.experience.subtitle}
         />
 
         <div className="grid lg:grid-cols-3 gap-8">
@@ -165,9 +166,9 @@ export default function ExperienceSection() {
                 <Briefcase className="w-5 h-5 text-accent-c" />
               </div>
               <div>
-                <h3 className="font-bold text-base">Internship</h3>
+                <h3 className="font-bold text-base">{t.experience.internship}</h3>
                 <p className="text-xs text-muted-c">
-                  Hands-on business mentoring
+                  {t.experience.internshipSub}
                 </p>
               </div>
             </motion.div>
@@ -198,8 +199,8 @@ export default function ExperienceSection() {
                 <Users className="w-5 h-5" style={{ color: "var(--neo-accent-3)" }} />
               </div>
               <div>
-                <h3 className="font-bold text-base">Organization</h3>
-                <p className="text-xs text-muted-c">Leadership roles</p>
+                <h3 className="font-bold text-base">{t.experience.organization}</h3>
+                <p className="text-xs text-muted-c">{t.experience.organizationSub}</p>
               </div>
             </motion.div>
             <div>
@@ -229,8 +230,8 @@ export default function ExperienceSection() {
                 <Camera className="w-5 h-5 text-accent-2-c" />
               </div>
               <div>
-                <h3 className="font-bold text-base">Committee</h3>
-                <p className="text-xs text-muted-c">5 event productions</p>
+                <h3 className="font-bold text-base">{t.experience.committee}</h3>
+                <p className="text-xs text-muted-c">{t.experience.committeeSub}</p>
               </div>
             </motion.div>
             <div>

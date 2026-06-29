@@ -19,9 +19,13 @@ import {
   Sparkles,
   ArrowDown,
 } from "lucide-react";
-import { profile, stats } from "@/lib/portfolio/cv-data";
+import { useLanguage } from "@/lib/portfolio/language-context";
+import { profile, getProfile, stats } from "@/lib/portfolio/cv-data";
 
 export default function Hero() {
+  const { t, lang } = useLanguage();
+  const p = getProfile(lang);
+
   const ref = useRef<HTMLDivElement>(null);
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
   const mouseX = useMotionValue(0);
@@ -95,7 +99,7 @@ export default function Hero() {
           >
             <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
             <span className="text-xs font-medium text-muted-c">
-              Available for opportunities
+              {t.hero.available}
             </span>
           </motion.div>
 
@@ -107,7 +111,7 @@ export default function Hero() {
               transition={{ delay: 0.3 }}
               className="block"
             >
-              Hi, I'm
+              {t.hero.greeting}
             </motion.span>
             <motion.span
               initial={{ opacity: 0, y: 20 }}
@@ -126,7 +130,7 @@ export default function Hero() {
             transition={{ delay: 0.6 }}
             className="text-lg sm:text-xl font-semibold mb-3"
           >
-            {profile.title}
+            {p.title}
           </motion.p>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -134,7 +138,7 @@ export default function Hero() {
             transition={{ delay: 0.7 }}
             className="text-sm text-muted-c mb-8 max-w-xl mx-auto lg:mx-0"
           >
-            {profile.tagline}
+            {p.tagline}
           </motion.p>
 
           {/* Quick info pills */}
@@ -176,7 +180,7 @@ export default function Hero() {
               className="neo neo-hover neo-press px-6 py-3 rounded-2xl font-semibold text-sm flex items-center gap-2 neo-glow"
             >
               <Code2 className="w-4 h-4 text-accent-c" />
-              View Projects
+              {t.hero.viewProjects}
             </motion.button>
             <motion.button
               onClick={() => scrollTo("awards")}
@@ -185,7 +189,7 @@ export default function Hero() {
               className="neo-inset neo-hover px-6 py-3 rounded-2xl font-semibold text-sm flex items-center gap-2"
             >
               <Award className="w-4 h-4 text-accent-2-c" />
-              See Achievements
+              {t.hero.seeAchievements}
             </motion.button>
           </motion.div>
 
@@ -234,7 +238,7 @@ export default function Hero() {
               className="absolute -top-3 -right-3 neo-sm px-3 py-1.5 rounded-full"
             >
               <span className="text-[10px] font-bold tracking-wider uppercase text-accent-c flex items-center gap-1">
-                <Sparkles className="w-3 h-3" /> 11× Champion
+                <Sparkles className="w-3 h-3" /> {t.hero.championBadge}
               </span>
             </motion.div>
 
@@ -268,7 +272,7 @@ export default function Hero() {
             >
               <h3 className="text-xl font-bold mb-1">{profile.name}</h3>
               <p className="text-xs text-muted-c tracking-wider uppercase">
-                {profile.title}
+                {p.title}
               </p>
             </div>
 
@@ -317,7 +321,7 @@ export default function Hero() {
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
       >
         <span className="text-[10px] tracking-widest uppercase text-muted-c">
-          Scroll
+          {t.hero.scroll}
         </span>
         <motion.div
           animate={{ y: [0, 8, 0] }}

@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as SonnerToaster } from "@/components/ui/sonner";
+import { LanguageProvider } from "@/lib/portfolio/language-context";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -56,21 +57,23 @@ export default function RootLayout({
           color: "var(--neo-text)",
         }}
       >
-        {children}
-        <Toaster />
-        <SonnerToaster
-          position="bottom-right"
-          toastOptions={{
-            style: {
-              background: "var(--neo-bg)",
-              color: "var(--neo-text)",
-              border: "1px solid var(--border)",
-              boxShadow:
-                "8px 8px 16px var(--neo-dark), -8px -8px 16px var(--neo-light)",
-              borderRadius: "1rem",
-            },
-          }}
-        />
+        <LanguageProvider>
+          {children}
+          <Toaster />
+          <SonnerToaster
+            position="bottom-right"
+            toastOptions={{
+              style: {
+                background: "var(--neo-bg)",
+                color: "var(--neo-text)",
+                border: "1px solid var(--border)",
+                boxShadow:
+                  "8px 8px 16px var(--neo-dark), -8px -8px 16px var(--neo-light)",
+                borderRadius: "1rem",
+              },
+            }}
+          />
+        </LanguageProvider>
       </body>
     </html>
   );

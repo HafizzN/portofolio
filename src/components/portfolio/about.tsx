@@ -3,20 +3,24 @@
 import { motion } from "framer-motion";
 import { GraduationCap, Target, Eye, Heart } from "lucide-react";
 import SectionTitle from "./section-title";
-import { profile, education } from "@/lib/portfolio/cv-data";
+import { useLanguage } from "@/lib/portfolio/language-context";
+import { getProfile, education } from "@/lib/portfolio/cv-data";
 
 export default function About() {
+  const { t, lang } = useLanguage();
+  const p = getProfile(lang);
+
   return (
     <section id="about" className="py-20 px-4 relative">
       <div className="max-w-6xl mx-auto">
         <SectionTitle
-          eyebrow="Profile"
+          eyebrow={t.about.eyebrow}
           title={
             <>
-              About <span className="text-gradient-accent">Me</span>
+              {t.about.title1} <span className="text-gradient-accent">{t.about.title2}</span>
             </>
           }
-          subtitle="Business Strategist turned Laravel Craftsman — bridging data-driven decision making with full-stack engineering."
+          subtitle={t.about.subtitle}
         />
 
         <div className="grid lg:grid-cols-[1.4fr_1fr] gap-6">
@@ -41,26 +45,23 @@ export default function About() {
               <div className="neo-inset-sm w-12 h-12 rounded-2xl flex items-center justify-center">
                 <Target className="w-5 h-5 text-accent-c" />
               </div>
-              <h3 className="text-xl font-bold">Who I Am</h3>
+              <h3 className="text-xl font-bold">{t.about.whoIam}</h3>
             </div>
             <p className="text-sm sm:text-base leading-relaxed text-foreground/90 mb-4">
-              {profile.about}
+              {p.about}
             </p>
             <p className="text-sm sm:text-base leading-relaxed text-muted-c">
-              I blend analytical rigor from business simulation championships
-              with technical depth from building production Laravel
-              applications. Whether it's optimizing a virtual company's revenue
-              in a 6-hour MonsoonSIM session, or architecting an HRIS system
-              consumed by a Flutter mobile app — I thrive at the intersection of
-              strategy and execution.
+              {lang === "en"
+                ? "I blend analytical rigor from business simulation championships with technical depth from building production Laravel applications. Whether it's optimizing a virtual company's revenue in a 6-hour MonsoonSIM session, or architecting an HRIS system consumed by a Flutter mobile app — I thrive at the intersection of strategy and execution."
+                : "Saya menggabungkan ketelitian analitis dari kejuaraan simulasi bisnis dengan kedalaman teknis dari membangun aplikasi Laravel produksi. Baik mengoptimalkan pendapatan perusahaan virtual dalam sesi MonsoonSIM 6 jam, atau merancang sistem HRIS yang dikonsumsi aplikasi mobile Flutter — saya berkembang di persimpangan strategi dan eksekusi."}
             </p>
 
             {/* Mini highlights */}
             <div className="grid sm:grid-cols-3 gap-3 mt-6">
               {[
-                { label: "Strategy", icon: Target },
-                { label: "Engineering", icon: GraduationCap },
-                { label: "Leadership", icon: Heart },
+                { label: t.about.strategy, icon: Target },
+                { label: t.about.engineering, icon: GraduationCap },
+                { label: t.about.leadership, icon: Heart },
               ].map((item, i) => (
                 <motion.div
                   key={i}
@@ -95,7 +96,7 @@ export default function About() {
                 <div className="neo-inset-sm w-10 h-10 rounded-xl flex items-center justify-center">
                   <GraduationCap className="w-4 h-4 text-accent-c" />
                 </div>
-                <h3 className="font-bold">Education</h3>
+                <h3 className="font-bold">{t.about.education}</h3>
               </div>
               {education.map((edu, i) => (
                 <div key={i} className="space-y-2">
@@ -104,7 +105,7 @@ export default function About() {
                   <div className="flex items-center justify-between text-xs">
                     <span className="text-muted-c">{edu.period}</span>
                     <span className="neo-inset-sm px-2.5 py-1 rounded-full font-bold text-accent-c">
-                      GPA {edu.gpa}
+                      {t.about.gpa} {edu.gpa}
                     </span>
                   </div>
                   <p className="text-xs text-muted-c">{edu.location}</p>
@@ -125,19 +126,16 @@ export default function About() {
                 <div className="neo-inset-sm w-10 h-10 rounded-xl flex items-center justify-center">
                   <Eye className="w-4 h-4 text-accent-c" />
                 </div>
-                <h3 className="font-bold">My Vision</h3>
+                <h3 className="font-bold">{t.about.visionTitle}</h3>
               </div>
               <p className="text-sm leading-relaxed text-muted-c">
-                To become a versatile digital leader who builds scalable
-                software products while driving strategic business decisions —
-                combining the precision of an engineer with the mindset of a
-                CEO.
+                {t.about.visionText}
               </p>
               {/* Mini progress indicator */}
               <div className="mt-4 space-y-2">
                 {[
-                  { label: "Engineering", value: 85 },
-                  { label: "Strategy", value: 92 },
+                  { label: t.about.engineering, value: 85 },
+                  { label: t.about.strategy, value: 92 },
                 ].map((item, i) => (
                   <div key={i}>
                     <div className="flex justify-between text-xs mb-1">
