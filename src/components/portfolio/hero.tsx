@@ -19,6 +19,7 @@ import {
   Sparkles,
   ArrowDown,
 } from "lucide-react";
+import Image from "next/image";
 import { useLanguage } from "@/lib/portfolio/language-context";
 import { profile, getProfile, stats } from "@/lib/portfolio/cv-data";
 
@@ -250,18 +251,52 @@ export default function Hero() {
               <motion.div
                 animate={{ y: [0, -8, 0] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                className="w-32 h-32 rounded-full neo-inset-lg flex items-center justify-center relative"
+                className="w-32 h-32 rounded-full neo-inset-lg flex items-center justify-center relative p-1.5"
               >
-                <div className="w-24 h-24 rounded-full neo-accent-bg flex items-center justify-center text-white font-black text-4xl shadow-lg">
-                  HH
+                <div className="relative w-full h-full rounded-full overflow-hidden shadow-lg neo-inset-sm">
+                  <Image
+                    src="/profile/hafizul-hanif.webp"
+                    alt="Hafizul Hanif"
+                    fill
+                    sizes="128px"
+                    className="object-cover rounded-full"
+                    priority
+                  />
+                  {/* Subtle gradient overlay for depth */}
+                  <div
+                    className="absolute inset-0 rounded-full pointer-events-none"
+                    style={{
+                      background:
+                        "radial-gradient(circle at 30% 20%, rgba(255,255,255,0.25), transparent 50%)",
+                    }}
+                  />
                 </div>
                 {/* Orbital ring */}
                 <motion.div
-                  className="absolute inset-0 rounded-full border-2 border-dashed"
+                  className="absolute inset-0 rounded-full border-2 border-dashed pointer-events-none"
                   style={{ borderColor: "var(--neo-accent)" }}
                   animate={{ rotate: 360 }}
                   transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
                 />
+                {/* Decorative floating dots around avatar */}
+                {[0, 120, 240].map((deg, i) => (
+                  <motion.div
+                    key={i}
+                    className="absolute w-2 h-2 rounded-full"
+                    style={{
+                      background: i === 0 ? "var(--neo-accent)" : i === 1 ? "var(--neo-accent-2)" : "var(--neo-accent-3)",
+                      top: "50%",
+                      left: "50%",
+                      marginTop: "-4px",
+                      marginLeft: "-4px",
+                      transformOrigin: "center",
+                      transform: `rotate(${deg}deg) translateY(-72px)`,
+                      boxShadow: `0 0 10px ${i === 0 ? "var(--neo-glow)" : "transparent"}`,
+                    }}
+                    animate={{ rotate: [deg, deg + 360] }}
+                    transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+                  />
+                ))}
               </motion.div>
             </div>
 
