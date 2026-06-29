@@ -22,8 +22,9 @@ export const translations = {
       forgingLegacy: "Forging Legacy",
       title: "HAFIZUL HANIF",
       subtitle: "Laravel Developer · Business Strategist",
-      cta: "Unsheath the Portfolio",
+      cta: "Enter Portfolio",
       skip: "Skip Intro →",
+      greetingsHint: "Greetings from around the world",
     },
     // Hero
     hero: {
@@ -174,6 +175,7 @@ export const translations = {
       subtitle: "Laravel Developer · Strateg Bisnis",
       cta: "Buka Portofolio",
       skip: "Lewati Intro →",
+      greetingsHint: "Salam dari berbagai penjuru dunia",
     },
     // Hero
     hero: {

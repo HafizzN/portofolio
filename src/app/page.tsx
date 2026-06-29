@@ -15,8 +15,8 @@ import Footer from "@/components/portfolio/footer";
 import ScrollProgress from "@/components/portfolio/scroll-progress";
 
 // Load intro only on client (it uses framer-motion's useMotionValueEvent)
-const SwordIntro = dynamic(
-  () => import("@/components/portfolio/sword-intro"),
+const GreetingsIntro = dynamic(
+  () => import("@/components/portfolio/greetings-intro"),
   { ssr: false }
 );
 
@@ -48,7 +48,7 @@ export default function Home() {
       <ScrollProgress />
 
       <AnimatePresence>
-        {!introDone && <SwordIntro onComplete={() => setIntroDone(true)} />}
+        {!introDone && <GreetingsIntro onComplete={() => setIntroDone(true)} />}
       </AnimatePresence>
 
       <motion.div
